@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   const baseLinks = [
     { path: "/dashboard", text: "Dashboard" },
     { path: "/dashboard/upload", text: "upload file" },
-    { path: "/dashboard/publish", text: "Publish App" },
+    { path: "/dashboard/publishApp", text: "Publish App" },
     { path: "/dashboard/messages", text: "Messages" },
     { path: "/dashboard/profile", text: "Profile" },
     { path: "/", text: "Home" },

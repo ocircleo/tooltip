@@ -81,7 +81,7 @@ const Login = () => {
           <span className="font-bold text-red-500">e</span>
         </button>
         <p className="text-sm font-semibold py-3">
-          Don't have an account ?{" "}
+          Do not have an account ?{" "}
           <Link href={"/register"} className="text-blue-500 underline">
             Register
           </Link>

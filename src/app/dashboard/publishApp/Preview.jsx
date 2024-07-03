@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Publish = () => {
+const Preview = () => {
     return (
         <div>
-            Publish softwere
+            preview
         </div>
     );
 };
 
-export default Publish;
+export default Preview;
