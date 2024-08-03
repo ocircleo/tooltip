@@ -5,7 +5,6 @@ import ActiveLink from "@/app/utls/ActiveLink/ActiveLink";
 const Layout = ({ children }) => {
   const [navState, setNavState] = useState(false);
   const toggleNav = () => setNavState(!navState);
-
   const baseLinks = [
     { path: "/dashboard", text: "Dashboard" },
     { path: "/dashboard/upload", text: "upload file" },
@@ -15,7 +14,7 @@ const Layout = ({ children }) => {
     { path: "/", text: "Home" },
   ];
   return (
-    <div className="bg-gray-500 h-screen w-full flex">
+    <div className="bg-gray-400 h-screen w-full flex">
       <div className="hidden md:w-64 bg-white h-full overflow-y-scroll md:flex flex-col gap-2 ps-4 pe-1 pt-3 pb-12">
         {baseLinks.map((ele, index) => (
           <ActiveLink
@@ -28,10 +27,10 @@ const Layout = ({ children }) => {
           </ActiveLink>
         ))}
       </div>
-
+      {/* small screen navbar */}
       <div
-        className={`md:hidden top-0 w-64 bg-white h-full  flex flex-col gap-2 px-2 pt-3 pb-12 fixed duration-100 ${
-          !navState ? "-left-64" : "left-0"
+        className={`md:hidden top-0 w-full sm:w-64 bg-white h-full  flex flex-col gap-2 px-2 pt-3 pb-12 fixed duration-100 ${
+          !navState ? "-left-full sm:-left-64" : "left-0"
         } z-20`}
       >
         {baseLinks.map((ele, index) => (
@@ -51,7 +50,8 @@ const Layout = ({ children }) => {
         }`}
         onClick={toggleNav}
       ></div>
-      <div className="flex-1 bg-gray-200 overflow-y-scroll p-3">
+      {/* sidebar toggler for small screen  */}
+      <div className=" flex-1 bg-gray-200 overflow-y-scroll overflow-x-hidden  p-0 md:p-3">
         <div
           onClick={toggleNav}
           className={`h-10 w-10 cursor-pointer rounded  flex gap-[3px] bg-white p-1 items-center justify-center flex-col md:hidden fixed right-6 top-6 active:scale-90 duration-100 z-50`}

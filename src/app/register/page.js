@@ -4,17 +4,30 @@ import React, { useState } from "react";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const submitForm = (e) => {
+
+  const submitForm = async (e) => {
     e.preventDefault();
-    let form = e.target;
-    let email = form.email.value;
-    let password = form.password.value;
-    let button = form.button;
+    let name, email, password, button, form, formData;
+    form = e.target;
+    name = form.name.value;
+    email = form.email.value;
+    password = form.password.value;
+    button = form.button;
     button.innerText = "Please Wait...";
-    let formData = { email, password };
+    formData = { name, email, password };
+    let result, data;
+    result = await fetch("http://192.168.0.103:5000/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    data = await result.json();
+    setCookie("accessToken", data?.cookie, 3);
+    setAuthInfo(data);
+    router.replace("/dashboard");
   };
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-gray-100 px-2">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 px-2">
       <div className="w-full md:w-[27rem] bg-white border rounded  p-7 ">
         <h1 className="text-xl font-bold py-4">Register a new account</h1>
         <form className="flex flex-col gap-3" onSubmit={submitForm}>
@@ -81,7 +94,7 @@ const Register = () => {
             Register
           </button>
         </form>
-        <p className="text-center py-3 font-semibold">or</p>
+        {/* <p className="text-center py-3 font-semibold">or</p>
         <button
           type="button"
           className="border-2 border-gray-400 font-semibold  py-2 rounded text-center w-full duration-100 active:scale-105 hover:border-indigo-500"
@@ -92,7 +105,7 @@ const Register = () => {
           <span className="font-bold text-blue-500">g</span>
           <span className="font-bold text-green-500">l</span>
           <span className="font-bold text-red-500">e</span>
-        </button>
+        </button> */}
         <p className="text-sm font-semibold py-3">
           Already have an account ?{" "}
           <Link href={"/login"} className="text-blue-500 underline">

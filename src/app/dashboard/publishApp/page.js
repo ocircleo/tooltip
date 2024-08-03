@@ -3,22 +3,22 @@ import React, { useState } from "react";
 import RegisterName from "./RegisterName";
 import Upload from "./Upload";
 import Publish from "./Publish";
-import Preview from "./Preview";
+import AddDetail from "./AddDetail";
 
 const PublishApp = () => {
   const [appInfo, setAppInfo] = useState({
     name: "",
     description: "",
     size: 0,
+    detailAdded: false,
     registered: false,
     uploaded: false,
-    published: false,
   });
 
-  //function to update state 
+  //function to update state
   const updateState = (key, value) =>
     setAppInfo((prevState) => ({ ...prevState, [key]: value }));
-  
+
   //Pages that will be shown according to state
   if (!appInfo.registered)
     return (
@@ -28,9 +28,10 @@ const PublishApp = () => {
   if (!appInfo.uploaded)
     return <Upload updateState={updateState} appInfo={appInfo}></Upload>;
 
-  if (!appInfo.published) return <Publish updateState={updateState}></Publish>;
-  //Default Page after app is published
-  return <Preview></Preview>;
+  if (!appInfo.detailAdded)
+    return <AddDetail updateState={updateState} appInfo={appInfo}></AddDetail>;
+
+  return <Publish updateState={updateState} appInfo={appInfo}></Publish>;
 };
 
 export default PublishApp;
