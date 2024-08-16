@@ -1,22 +1,65 @@
-import Image from 'next/image';
+'use client'
+import { getCookie } from '@/app/utls/cookie/Cookie';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const Publish = ({ updateState }) => {
+const Publish = ({ appInfo }) => {
+    const router = useRouter()
+    let { name, icon, description, os, version, organization, file_url, org_url } = appInfo?.result;
+    console.log(appInfo.result);
+    const publish = async () => {
+        let res, result;
+        res = await fetch("http://localhost:5000/user/publish-app", {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${getCookie("accessToken")}`,
+            },
+            body: JSON.stringify({ name: appInfo.name }),
+        })
+        result = await res.json();
+        if (!result.error) return router.push("/apps/" + name)
+        console.log(result);
+    }
     return (
-        <div className='bg-white h-auto min-h-screen p-2 md:p-4'>
-            <div className='w-full h-full md:w-4/6  mx-auto'>
-                <div className='w-full flex justify-between items-center '>
-                    <div>
+        <div className='w-full bg-white min-h-screen'>
+            <div className="w-full p-2 md:w-4/5 mx-auto">
+                <div className='flex flex-col md:flex-row justify-between'>
+                    <div className='flex gap-5 items-center '>
+                        <img src={icon} alt="icon" className='h-28 w-28 rounded bg-gray-200' />
+                        <div >
+                            <h1 className="text-2xl font-semibold capitalize">{name}</h1>
+                            <Link href={org_url} target='_blank' className='text-green-600 font-semibold'>{organization}</Link>
+                            <div className='flex gap-2 items-center text-gray-600'>
+                                <p>4.5 ⭐</p> <p className='text-green-600'>|</p> <p>1k downloads</p>
 
-                        {/* <Image width={120} height={120} src="https://www.w3schools.com/images/myw3schoolsimage.jpg" alt='image' className='bg-gray-200 h-16 w-16 md:h-20 md:w-20 rounded border-transparent' /> */}
-                        <h2>App Name</h2>
-                        <p className='text-sm'>By company</p>
+                            </div>
+
+                        </div>
+
                     </div>
-                    <a href="https://www.w3schools.com/images/myw3schoolsimage.jpg" download="w3logo" className='bg-indigo-500 px-5 py-2 rounded text-white font-semibold' > Download</a>
+                    <div className='flex flex-col'>
+                        <Link href={file_url} target='_blank' className="bg-indigo-400 text-white font-semibold px-5 py-2 mt-8 active:scale-105 duration-100">
+                            Download
+                        </Link>
+                        <p className="text-sm capitalize text-gray-500 pt-1">
+                            for <span className='text-black font-semibold'>{os}</span>, version: {version}
+                        </p>
+
+                    </div>
+
+                </div>
+                <h2 className="text-xl py-3">About app</h2>
+                <p>
+                    {description}
+                </p>
+                <div className='flex w-full justify-center'>
+                    <button onClick={publish} className='bg-green-500 px-12 py-3 rounded font-semibold  text-white my-20 w-full md:w-96 active:scale-105 duration-100'>Publish</button>
+
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

@@ -5,7 +5,7 @@ export async function middleware(request) {
   let accessToken = request.cookies.get("accessToken");
   if (!accessToken)
     return NextResponse.redirect(new URL("/login", request.url));
-  let res = await fetch("http://192.168.0.103:5000/auth/auto_login", {
+  let res = await fetch("https://tooltip-backend.vercel.app/auth/auto_login", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

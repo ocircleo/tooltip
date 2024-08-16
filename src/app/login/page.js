@@ -17,7 +17,7 @@ const Login = () => {
     button.innerText = "Please Wait...";
     let formData = { email, password };
     let result, data;
-    result = await fetch("http://192.168.0.103:5000/auth/login", {
+    result = await fetch("https://tooltip-backend.vercel.app/auth/login", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

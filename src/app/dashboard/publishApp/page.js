@@ -13,8 +13,8 @@ const PublishApp = () => {
     detailAdded: false,
     registered: false,
     uploaded: false,
+    result: {},
   });
-
   //function to update state
   const updateState = (key, value) =>
     setAppInfo((prevState) => ({ ...prevState, [key]: value }));
@@ -24,12 +24,11 @@ const PublishApp = () => {
     return (
       <RegisterName updateState={updateState} appInfo={appInfo}></RegisterName>
     );
+  if (!appInfo.detailAdded)
+    return <AddDetail updateState={updateState} appInfo={appInfo}></AddDetail>;
 
   if (!appInfo.uploaded)
     return <Upload updateState={updateState} appInfo={appInfo}></Upload>;
-
-  if (!appInfo.detailAdded)
-    return <AddDetail updateState={updateState} appInfo={appInfo}></AddDetail>;
 
   return <Publish updateState={updateState} appInfo={appInfo}></Publish>;
 };

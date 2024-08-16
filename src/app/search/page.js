@@ -2,6 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import Search from "@/app/utls/searchbar/Search";
 import Link from "next/link";
+import { Suspense } from "react";
 const SearchPage = () => {
   const params = useSearchParams();
   let text = params.get("text");
@@ -13,12 +14,18 @@ const SearchPage = () => {
           search
         </Link>
       </p>
-      <Search text={text}></Search>
+        <Search text={text}></Search>
       <p className="text-gray-600 text-sm">
         Results for: &quot; <i> {text} &quot;</i>
       </p>
     </div>
   );
 };
-
-export default SearchPage;
+const page = () => {
+  return (
+    <Suspense>
+      <SearchPage></SearchPage>
+    </Suspense>
+  );
+};
+export default page;

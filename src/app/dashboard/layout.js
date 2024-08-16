@@ -7,7 +7,9 @@ const Layout = ({ children }) => {
   const toggleNav = () => setNavState(!navState);
   const baseLinks = [
     { path: "/dashboard", text: "Dashboard" },
+    { path: "/dashboard/myfiles", text: "My files" },
     { path: "/dashboard/upload", text: "upload file" },
+    { path: "/dashboard/myApps", text: "My Apps" },
     { path: "/dashboard/publishApp", text: "Publish App" },
     { path: "/dashboard/messages", text: "Messages" },
     { path: "/dashboard/profile", text: "Profile" },
@@ -54,7 +56,7 @@ const Layout = ({ children }) => {
       <div className=" flex-1 bg-gray-200 overflow-y-scroll overflow-x-hidden  p-0 md:p-3">
         <div
           onClick={toggleNav}
-          className={`h-10 w-10 cursor-pointer rounded  flex gap-[3px] bg-white p-1 items-center justify-center flex-col md:hidden fixed right-6 top-6 active:scale-90 duration-100 z-50`}
+          className={`h-10 w-10 cursor-pointer rounded  flex gap-[3px] bg-white shadow-inner border p-1 items-center justify-center flex-col md:hidden fixed right-6 top-6 active:scale-90 duration-100 z-50`}
         >
           <div
             className={`h-[6px] bg-black w-full duration-200 rounded-[2px] ${

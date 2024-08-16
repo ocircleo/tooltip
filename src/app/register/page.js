@@ -1,10 +1,13 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { setCookie } from "../utls/cookie/Cookie";
+import { setAuthInfo } from "../utls/auth/AuthInfo";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-
+  const router = useRouter();
   const submitForm = async (e) => {
     e.preventDefault();
     let name, email, password, button, form, formData;
@@ -16,7 +19,7 @@ const Register = () => {
     button.innerText = "Please Wait...";
     formData = { name, email, password };
     let result, data;
-    result = await fetch("http://192.168.0.103:5000/auth/register", {
+    result = await fetch("https://tooltip-backend.vercel.app/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

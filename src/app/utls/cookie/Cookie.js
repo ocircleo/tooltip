@@ -7,6 +7,16 @@ const setCookie = (key, value, day) => {
   let expires = "expires=" + date.toUTCString();
   document.cookie = `${key}=${value};` + expires;
 };
+// function cookieParser(name){
+//   let cookieArr = document.cookie.split("; ");
+//   for (let cookie of cookieArr) {
+//     let [cookieName, cookieValue] = cookie.split("=");
+//     if (cookieName == name) {
+//       return cookieValue;
+//     }
+//   }
+//   return null;
+// }
 function getCookie(name) {
   let cookieArr = document.cookie.split("; ");
   for (let cookie of cookieArr) {
@@ -22,12 +32,9 @@ function GetUser() {
   useEffect(() => {
     let cookie = getCookie("accessToken");
     if (cookie) {
-      fetch("http://192.168.0.103:5000/auth/auto_login", {
+      fetch("https://tooltip-backend.vercel.app/auth/auto_login", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${cookie}`,
-        },
+        headers: {"Authorization": `${cookie}` },
       })
         .then((res) => res.json())
         .then((data) => setUser(data?.result));
